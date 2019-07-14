@@ -1,10 +1,9 @@
 class Train
-  attr_reader :number, :wagons, :type
+  attr_reader :number, :current_speed, :wagons
 
-  def initialize(number, type, wagons)
+  def initialize(number)
     @number = number
-    @type = type
-    @wagons = wagons
+    @wagons = []
     @current_speed = 0
   end
 
@@ -22,22 +21,18 @@ class Train
     puts "Stop! Current speed is #{@current_speed}"
   end
 
-  def wagons
-    puts "Amount of wagons: #{@wagons}"
-  end
-
-  def add_wagon
+    def add_wagon(wagon)
     if @current_speed == 0
-      @wagons += 1
+      @wagons.push(wagon) 
     else
       puts "There is no way to add wagon while its speed isn't equal to 0"
     end
     puts "Number of wagons = #{@wagons}"
   end
 
-  def delete_wagon
+  def delete_wagon(wagon)
     if @current_speed == 0 && @wagons > 0
-      @wagons -= 0
+      @wagons.delete(wagon)
     else
       puts 'There is no way to delete wagon from the train'
     end
@@ -58,7 +53,7 @@ class Train
   end
 
   def prev_station
-    @route.station[@station - 1]
+    @route.station[@station - 1] if @station != 0
   end
 
   def forward
